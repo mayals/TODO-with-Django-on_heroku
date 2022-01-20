@@ -14,8 +14,11 @@ psycopg2==2.9.3
 
 
 # for heroku developement, i have installed :
+
 django-heroku==0.3.1
+
 gunicorn==20.1.0
+
 whitenoise==5.3.0
 
 
