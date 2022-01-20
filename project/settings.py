@@ -9,8 +9,15 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
+
+
+# https://devcenter.heroku.com/articles/django-app-configuration
+import django_heroku
+
+
 import os
 from pathlib import Path
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -49,6 +56,9 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    
+    'whitenoise.middleware.WhiteNoiseMiddleware',     # for depoyment heroku
+
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -140,9 +150,25 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-       os.path.join(BASE_DIR,"static")
-]
+
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # for depoyment heroku
+
+
+STATICFILES_DIRS = (                                # for depoyment heroku
+    os.path.join(BASE_DIR,'static'),
+)
+
+# for depoyment heroku
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
+
+
+
+
+
+
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
@@ -155,3 +181,22 @@ LOGIN_URL = 'users:UserLogin'
 LOGOUT_URL = 'users:UserLogout'
 
 LOGIN_REDIRECT_URL = 'todo:tasks'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+############## deployment to heruko ########################
+# https://devcenter.heroku.com/articles/django-app-configuration
+# Activate Django-Heroku.
+django_heroku.settings(locals())
