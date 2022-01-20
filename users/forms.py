@@ -9,7 +9,7 @@ from django.views.generic import DetailView
 # https: // docs.djangoproject.com/en/3.2/topics/auth/customizing/
 class CustomUserCreationForm(forms.ModelForm):
     username = forms.CharField(
-        label='Username', max_length=30, help_text='space not allowed in username')
+        label='Username', max_length=15, help_text='space not allowed in username')
     first_name = forms.CharField(label='First Name',required=True)
     last_name = forms.CharField(label='Last Name', required=False)
     email = forms.EmailField(label='Email', required=True)

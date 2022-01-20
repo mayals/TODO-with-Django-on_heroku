@@ -33,7 +33,7 @@ def tasks(request):
                         length_of_T_name = len(T_name)
                         print(length_of_T_name)
                         # Simply send your own message
-                        messages.warning(request, f"Error: maximum length limit is 30 characters (it has {length_of_T_name}).")
+                        messages.warning(request, f"Error: maximum length limit is 15 characters (it has {length_of_T_name}).")
                 
                 return redirect('todo:tasks')
                   

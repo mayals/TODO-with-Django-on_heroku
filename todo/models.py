@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 
 class Task(models.Model):
-    T_name = models.CharField(max_length=30)
+    T_name = models.CharField(max_length=15)
 
     T_status = models.BooleanField(default=False)
 

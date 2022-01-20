@@ -24,7 +24,7 @@
       <div class="card-header"><h2 class="text-light text-center">To DO Tasks</h2></div>   
         <div class="card-body bg-light table-responsive">
               <!-- button Delete All --> 
-              <a class="btn btn-danger btn-small float-left mb-2" href="{% url 'todo:tasks_not_done_delete' %}" role="button"><i class="text-light far fa-trash-alt fa-1x"></i>
+              <a class="btn btn-danger btn-sm float-left mb-2" href="{% url 'todo:tasks_not_done_delete' %}" role="button"><i class="text-light far fa-trash-alt fa-1x"></i>
                  Delete All
               </a>   
               
@@ -153,14 +153,14 @@
                         <tr class="card-footer bg-light">
                           <form method='POST' class="form-group"> 
                               {% csrf_token %}
-                              <td>
-                                <input name='T_name' class="form-control form-control-lg" type="text" placeholder="Enter your Task (Max. 30 characters)">
+                              <div>
+                                <input name='T_name' class="form-control form-control-lg" type="text" placeholder="Enter your Task (Max. 15 characters)">
                                 <input name='task_id' class="form-control form-control-lg" type="hidden">
-                              </td>
-                              <td class='text-right'>
-                                <button  class="btn btn-warning" id="add_task_btn"
-                                title="Add a New Task"><i class="fas fa-plus-circle fa-2x"></i>Task</button>
-                              </td>
+                              </div>
+                              <div>
+                                <button  class="btn btn-warning btn-sm btn-block mb-3 mt-1" id="add_task_btn"
+                                title="Add a New Task"><i class="fas fa-plus-circle fa-sm"></i>&nbsp;Task</button>
+                              </div>
                           </form>        
                         </tr>
                         <!-- end row add new task form -->
@@ -171,31 +171,29 @@
       </div>
    {% comment %} end tabe1 {% endcomment %}
     
-<br><br><br><br>
+<br><br>
 
 {% comment %} start table 2 {% endcomment %}
     <div class="card bg-success mb-3">
       <div class="card-header"><h2 class="text-light text-center">Done Tasks</h2></div>   
         <div class="card-body bg-light table-responsive">
-           <a class="btn btn-danger btn-small float-left mb-2" href="{% url 'todo:tasks_done_delete' %}" role="button"><i class="text-light far fa-trash-alt fa-1x"></i>
+            <a class="btn btn-danger btn-small float-left mb-2" href="{% url 'todo:tasks_done_delete' %}" role="button"><i class="text-light far fa-trash-alt fa-1x"></i>
                  Delete All
-              </a> 
+            </a> 
             
             <table class="table table-hover table-sm">
               <tbody>
-               {% comment %}start row  {% endcomment %}
-                   
-              {% comment %} start  end row  {% endcomment %}
+                  {% comment %}start row  {% endcomment %}
+                  {% comment %} start  end row  {% endcomment %}
                 {% for task in tasks_done %}
                         <tr>
                             <td>      
                                 {% if task.T_status == False %}
                                     <h5 class='font-weight-bold'>
                                       <a href="{% url 'todo:change_status' task_id=task.id %}" class="btn" role="button" aria-pressed="true">
-                                      <i class="text-secondary far fa-clock fa-2x"></i>
+                                        <i class="text-secondary far fa-clock fa-2x"></i>
                                       </a>
-                                      <span>{{ task.T_name }}</span>
-                                          
+                                      <span>{{ task.T_name }}</span>   
                                     </h5>
                                    
                                 {% else %}
@@ -209,17 +207,17 @@
                             </td>   
                         </tr>     
                 {% endfor %} 
-                 {% comment %} end tasks not done tble{% endcomment %}
-                        {% comment %}start end row  {% endcomment %}
-                        
+                  {% comment %} end tasks not done tble{% endcomment %}
+                  {% comment %}start end row  {% endcomment %}        
                 </tbody>
-            </table>
+              </table>
+
         </div> 
       </div>
   
 
      {{ now }}
-</div>
+    </div>
 
 
 {% endblock content  %}

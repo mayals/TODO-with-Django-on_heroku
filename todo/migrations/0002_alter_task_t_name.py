@@ -13,6 +13,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='task',
             name='T_name',
-            field=models.CharField(max_length=30),
+            field=models.CharField(max_length=15),
         ),
     ]
