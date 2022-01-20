@@ -7,13 +7,6 @@ body {
     background-color: #030300 !important;
 }
 
-
-/* body {
-    background-image:url("{{ STATIC_URL }}image/todo/nezuko-kamado.png") !important;
-    background-repeat: no-repeat;
-    background-size: 100%;
-} */
-
 .pat {
     background: url("/static/image/todo/pat6.png") 50% 0 repeat fixed;
     color: black;
