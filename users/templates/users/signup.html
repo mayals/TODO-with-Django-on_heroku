@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}Create an account{% endblock %}
+
+{% block content %}
+   <br><br>
+    <div class='container bg-white p-5 mt-5'>
+        <br>
+        <h1>Create an account</h1>
+        <p>Please, sign up using the following form:</p>
+         <hr>
+        <br>
+        <form action="." method="POST" novalidate>
+                {{ form|crispy }}
+                {% csrf_token %}
+                <p><input class='btn btn-info' type="submit" value="Create my account"></p>
+        </form>
+    </div>
+
+{% endblock %}

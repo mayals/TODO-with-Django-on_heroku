@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+ <br><br><br><br><br><br><br>
+
+
+<div class='container'>
+           
+            {% comment %} message {% endcomment %}
+            {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-{{message.tags}}">
+                    {{message}}
+                </div>
+                {% endfor %}
+            {% endif %}
+            {% comment %} message {% endcomment %}
+
+
+
+        <div class="row border p-4 ml-5 mr-5 bg-white">
+        
+           
+                    <div class ='col-md-4 text-center'>
+                        <img class="img-fluid rounded-circle border m-2" 
+                                style="width: 120px; height:120px;"
+                                    {% if user.U_profile.P_image %}
+                                        src="{{user.U_profile.P_image.url}}" 
+                                    {% else %}
+                                        src="{% static 'image/users/default.jpg' %}"
+                                    {% endif %}
+                                alt="{{user.username}}">
+                    </div>                    
+
+
+
+                    <br><hr><br>
+
+
+                    <div class="col-md-8 text-center">
+                        <h2 class="mb-4">{{user.username}}</h2>
+                        <p class="font-weight-bold"> Full Name: <span class="font-weight-normal">{{user.first_name}}
+                                {{user.last_name}}</span></p>
+                        <p class="font-weight-bold"> Email: <span class="font-weight-normal">{{user.email}}</span></p>
+                    </div>
+            
+        </div>
+        <div class='row ml-5 mr-5'>
+            <a type="button" href="{% url 'users:profile_user_edit' %}" class="btn btn-info btn-lg btn-block mb-5">Edit Profile</a>
+     
+        </div>   
+</div>
+
+{% endblock content %}

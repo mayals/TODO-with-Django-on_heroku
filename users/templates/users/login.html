@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    
+
+
+<section class='container mt-5 mb-5'>
+    <br><br>
+    
+    <!-- if messages  -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{message.tags}}">
+                {{message}}
+            </div>
+        {% endfor %} 
+    {% endif %}
+    <!-- end if messages  -->
+
+
+    <div class='bg-white p-5 border'>  
+    
+        <h1>{{sub_title}}</h1>
+        <p>Please, use the following form to log-in:</p>
+        <hr>
+        <br>
+    
+        <form action="." method="post" novalidate>
+                {{ form|crispy }}
+                {% csrf_token %}
+                <p><input class='btn btn-info' type="submit" value="Log in"></p>
+        </form>
+
+
+        <div class="border-top mt-4 pt-2">
+            <small>
+            if you dont have account    <a href="{% url 'users:UserForm' %}">register here</a>
+            </small>
+        </div>
+
+        
+    <div>
+</section>
+
+{% endblock %}

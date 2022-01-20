@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Logged out{% endblock %}
+
+
+
+{% block content %}
+
+<section class='container mt-5  mb-5'>
+     <br><br>
+    <div class='bg-white p-5 border'>
+       
+        <h1>Logged out</h1>
+        <hr>
+        <p>You have been successfully logged out.
+        You can <a href="{% url 'users:UserLogin' %}">log-in again</a>.</p> 
+    </div>
+</section>
+<br><br><br><br><br><br><br><br><br><br>
+{% endblock content %}

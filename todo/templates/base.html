@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!doctype html>
+<html lang="en">
+  {% load static %}
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+    {% comment %} fontawesome {% endcomment %}
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="{% static 'css/todo/my_style.css' %}">
+
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{% static 'image/favicon.ico' %}">
+    
+    <title>    
+        {{ title }} | {{ sub_title }}
+    </title>
+  </head>
+
+{% comment %} ----body start ---- {% endcomment %}
+  
+  
+  
+<body class='pat'>
+{% comment %} nabar start {% endcomment %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <!-- logo start -->
+        <div class="navbar-brand rotate-n-15  mr-3">
+            <i class="fas fa-tasks fa-3x"></i>
+        </div>
+        <div class="navbar-brand mb-0 h1"><h1> To Do <sup>!</sup></h1></div>
+        <!-- logo end -->
+        
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+         <a class="nav-link pt-2" href="{% url 'todo:tasks' %}"><i class="far fa fa-home mt-2 "></i> Home</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle pt-2" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-user"></i>   Accounts
+        </a>
+        {% if request.user.is_authenticated %}
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{% url 'users:UserLogout' %}">Logout</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="{% url 'users:profile_view' %}">Profile</a>
+        </div>
+        {% else %}
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{% url 'users:UserLogin' %}">Login</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="{% url 'users:UserForm' %}">Register</a>
+        </div>
+        {% endif %}
+      </li>
+    </ul>
+    {% if request.user.is_authenticated %}
+        <div class='nav-item'>
+            <a href = "{% url 'users:profile_user_edit' %}">   
+                {% if user.U_profile.P_image %}
+                    <img class="img-fluid rounded-circle border m-2" 
+                        style="width: 30px; height:30px;"
+                          src="{{user.U_profile.P_image.url}}" 
+                          alt="{{user.username}}">
+                    <span class='badge badge-light'>Welcome {{ user.username }}</span> 
+                {% else %}
+                    <img class="img-fluid rounded-circle border m-2" 
+                        style="width: 30px; height:30px;"
+                          src="{% static 'image/users/default.jpg' %}" 
+                          alt="{{user.username}}">
+                    <span class='badge badge-light'>Welcome {{ user.username }}</span>
+                {% endif %} 
+             </a>         
+        </div>
+    {% endif %}  
+  </div>
+</nav>
+{% comment %} navbar end  {% endcomment %}
+{% block content %}
+{% endblock content  %}
+<br>
+<footer class="bg-light text-center text-lg-start">
+  <!-- Copyright -->
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+    <center>   
+              Copyright&nbsp;&copy;{% now 'Y' %} &nbsp;All rights reserved 
+              <br>by <a class="text-dark" href="https://github.com/mayals"><i class="fab fa-github-alt"></i>&nbsp;mayals</a>, 
+            </center>
+  </div>
+  <!-- Copyright -->
+</footer>
+
+
+  
+    <script type="text/javascript" src="{% static 'js/my_javascript.js' %}"></script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  </body>
+</html>

@@ -1,0 +1,22 @@
+table .bkgr {
+    background-color: rgba(208, 241, 184, 0.932)!important;
+    color: blue;
+}
+
+body {
+    background-color: #030300 !important;
+}
+
+
+/* body {
+    background-image:url("{{ STATIC_URL }}image/todo/nezuko-kamado.png") !important;
+    background-repeat: no-repeat;
+    background-size: 100%;
+} */
+
+.pat {
+    background: url("/static/image/todo/pat6.png") 50% 0 repeat fixed;
+    color: black;
+    height: 650px;
+    padding: 100px 0 0 0;
+}

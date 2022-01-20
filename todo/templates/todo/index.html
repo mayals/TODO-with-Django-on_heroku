@@ -1,0 +1,226 @@
+{% extends 'base.html'  %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+
+<br><br>
+
+<div class='container'>
+
+<!-- if messages  -->
+                          {% if messages %}
+                              {% for message in messages %}
+                                  <div class="alert alert-{{message.tags}}">
+                                      {{message}}
+                                  </div>
+                              {% endfor %} 
+                          {% endif %}
+<!-- end if messages  -->
+
+
+
+    <div class="card bg-secondary text-dark mb-3">
+      <div class="card-header"><h2 class="text-light text-center">To DO Tasks</h2></div>   
+        <div class="card-body bg-light table-responsive">
+              <!-- button Delete All --> 
+              <a class="btn btn-danger btn-small float-left mb-2" href="{% url 'todo:tasks_not_done_delete' %}" role="button"><i class="text-light far fa-trash-alt fa-1x"></i>
+                 Delete All
+              </a>   
+              
+              <table class="table table-hover table-sm">
+              <tbody>
+          
+                {% for task in tasks_not_done %}
+                <!--start  tasks not done list --> 
+                <tr>     
+                    {% if task.T_status == False %}
+                        <!-- tasks not done name --> 
+                        <td>
+                          <h5 class='font-weight-bold'>
+                            <a href="{% url 'todo:change_status' task_id=task.id %}" class="btn" role="button" aria-pressed="true">
+                              <i class="text-secondary far fa-clock fa-2x"></i>
+                            </a>
+                            <span>{{ task.T_name }}</span>
+                          </h5>
+                        <td/>
+
+                        <!-- tasks not done date -->
+                        <td>
+                            <small><span class='text-muted font-italic text-lef'>{{ task.T_published|date:'d-m-Y' }}</span><small>
+                        </td>
+
+
+
+
+
+
+
+
+                      <!--############  start button edit tasks not done and modal for it ##############-->
+                        <!-- button edit tasks not done -->
+                        <!-- this buton only open jave script alert id="exampleModal"-->
+                        <td>
+                          <a  data-target="#exampleModal" href="{% url 'todo:task_edit' task_id=task.id %}" type='submit' data-toggle="modal"  class='float-right btn'>
+                              <i class="text-info far fa-edit fa-1x"></i>
+                          </a>
+                        </td>
+
+                          <!-- start  modal of button edit tasks not done -->
+                          <div id="exampleModal" class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                  <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                      <!-- start  modal-header -->
+                                      <div class="modal-header">
+                                          <h5 class="modal-title" id="exampleModalLabel">Edit Task</h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                          </button>
+                                      </div>
+                                      <!-- start  modal-body   form -->
+                                      <div class="modal-body">
+                                            <form method='Post' action="{% url 'todo:task_edit' task_id=task.id %}">
+                                            <div class="form-group">  
+                                               {% csrf_token %}
+                                                <div class="form-group">
+                                                    <input name='T_name_edit' id='T_name_edit' value="{{task.T_name}}" class="form-control form-control-lg" type="text">
+                                                    <input name='edit_id'  id='edit_id' value="{{task.id}}" class="form-control form-control-lg" type="hidden">
+                                                </div> 
+                                                <!-- start  modal-foter inside modal body -->
+                                                <div class="modal-footer" > 
+                                                    <button  type='submit' class="btn btn-success float-right" id="edit_task_btn" title="Edit Task">
+                                                        <i class="text-light far fa-edit fa-1x"></i> 
+                                                          Task
+                                                    </button>
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                          Close
+                                                    </button>
+                                                </div>
+                                              </div>
+                                              </form>
+                                      </div>
+                                      <!-- end modal-body form -->
+                                    </div>
+                                  </div>
+                          </div>
+                          <!-- end  modal of button edit tasks not done -->
+                      <!--############ end button edit tasks not done and modal for it ##############-->
+                          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        <!--button delete not done task  -->
+                        <td>
+                          <a href="{% url 'todo:task_delete' task_id=task.id %}" class='float-right btn'>
+                              <i class="text-danger far fa-trash-alt fa-1x"></i>
+                          </a>
+                        </td>
+                </tr>
+                <!--end tasks not done list --> 
+
+                    {% else %}
+                <!-- tasks done list -->     
+                <tr>    
+                        <td>
+                              <h5 class='font-weight-light text-muted'>
+                                <a href="{% url 'todo:change_status' task_id=task.id %}" class="btn" role="button" aria-pressed="true">
+                                  <i class="text-success fas fa-check fa-2x"></i>
+                                </a> 
+                                <span><del> {{ task.T_name }}</del></span>
+                              </h5>
+                        </td>
+                </tr>
+                  <!--end tasks done list -->      
+                    {% endif %} 
+    
+                {% endfor %} 
+                  
+                        
+                        <!-- start row add new task form -->
+                        <tr class="card-footer bg-light">
+                          <form method='POST' class="form-group"> 
+                              {% csrf_token %}
+                              <td>
+                                <input name='T_name' class="form-control form-control-lg" type="text" placeholder="Enter your Task (Max. 30 characters)">
+                                <input name='task_id' class="form-control form-control-lg" type="hidden">
+                              </td>
+                              <td>
+                                <button  class="btn btn-warning float-right" id="add_task_btn"
+                                title="Add a New Task"><i class="fas fa-plus-circle fa-2x"></i>Task</button>
+                              </td>
+                          </form>        
+                        </tr>
+                        <!-- end row add new task form -->
+
+                </tbody>
+            </table>
+        </div> 
+      </div>
+   {% comment %} end tabe1 {% endcomment %}
+    
+<br><br><br><br>
+
+{% comment %} start table 2 {% endcomment %}
+    <div class="card bg-success mb-3">
+      <div class="card-header"><h2 class="text-light text-center">Done Tasks</h2></div>   
+        <div class="card-body bg-light table-responsive">
+           <a class="btn btn-danger btn-small float-left mb-2" href="{% url 'todo:tasks_done_delete' %}" role="button"><i class="text-light far fa-trash-alt fa-1x"></i>
+                 Delete All
+              </a> 
+            
+            <table class="table table-hover table-sm">
+              <tbody>
+               {% comment %}start row  {% endcomment %}
+                   
+              {% comment %} start  end row  {% endcomment %}
+                {% for task in tasks_done %}
+                        <tr>
+                            <td>      
+                                {% if task.T_status == False %}
+                                    <h5 class='font-weight-bold'>
+                                      <a href="{% url 'todo:change_status' task_id=task.id %}" class="btn" role="button" aria-pressed="true">
+                                      <i class="text-secondary far fa-clock fa-2x"></i>
+                                      </a>
+                                      <span>{{ task.T_name }}</span>
+                                          
+                                    </h5>
+                                   
+                                {% else %}
+                                    <h5 class='font-weight-light text-muted'>
+                                      <a href="{% url 'todo:change_status' task_id=task.id %}" class="btn" role="button" aria-pressed="true">
+                                      <i class="text-success fas fa-check fa-2x"></i>
+                                      </a> 
+                                      <span><del> {{ task.T_name }}</del></span>
+                                    </h5>
+                                {% endif %} 
+                            </td>   
+                        </tr>     
+                {% endfor %} 
+                 {% comment %} end tasks not done tble{% endcomment %}
+                        {% comment %}start end row  {% endcomment %}
+                        
+                </tbody>
+            </table>
+        </div> 
+      </div>
+  
+
+     {{ now }}
+</div>
+
+
+{% endblock content  %}
+
