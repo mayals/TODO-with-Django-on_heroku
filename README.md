@@ -1,5 +1,13 @@
 # TODO-with-Django-on_heroku
 --------------------------------
+## for design i have used:
+
+css
+
+bootstrap 4.1.3
+
+fonawesome v5.10.0
+
 
 ## i have installed :
 
